@@ -14,6 +14,7 @@ const ListRating: React.FC<ListRatingProps> = ({ product }) => {
   return (
     <div>
       <Heading title="Product Review" />
+      {product.reviews <1 && (<div>No reviews Yet</div>) }
       <div className="text-sm mt-2">
         {product.reviews &&
           product.reviews.map((review: any) => {
