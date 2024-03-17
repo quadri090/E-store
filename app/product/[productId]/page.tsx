@@ -1,5 +1,5 @@
 import Container from "@/app/components/Container";
-import { product } from "@/utils/product";
+import { products } from "@/utils/products";
 import ProductDetails from "../ProductDetails";
 import ListRating from "./ListRating";
 
@@ -9,13 +9,14 @@ interface ProductParams {
 
 const ProductPage = ({ params }: { params: ProductParams }) => {
 
+  const product = products.find((item) => item.id === params.productId)
   // console.log("params", params);
   return (
-    <div className="p-8">
+    <div className="md:p-8">
       <Container>
         <ProductDetails product={product} />
         <div className="flex flex-col mt-20 gap-4">
-          <div>Add Rating</div>
+          <div>Rate Product</div>
           <ListRating product={product}/>
         </div>
       </Container>
