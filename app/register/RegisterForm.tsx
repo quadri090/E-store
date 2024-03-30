@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Heading from "../components/Heading";
 import Input from "../components/inputs/Input";
 import Btn from "../components/Btn";
@@ -10,9 +10,22 @@ import toast from "react-hot-toast";
 import { AiOutlineGoogle } from "react-icons/ai";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { safeUser } from "@/types";
 
-const RegisterForm = () => {
+
+interface RegisterFormProps{
+  currentUser: safeUser | null
+}
+
+const RegisterForm: React.FC<RegisterFormProps> = ({currentUser}) => {
   const router = useRouter();
+
+  useEffect(() => {
+    if(currentUser) {
+      router.push('/cart')
+      router.refresh()
+    }
+  }, [])
 
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -55,6 +68,11 @@ const RegisterForm = () => {
       .finally(() => setIsLoading(false));
     console.log(data);
   };
+
+  if(currentUser) {
+    return <p className="text-center">Logged In. Redirecting...</p>
+  }
+
 
   return (
     <>
