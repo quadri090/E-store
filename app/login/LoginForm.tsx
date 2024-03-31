@@ -57,7 +57,7 @@ const LoginForm : React.FC<LoginFormProps> = ({currentUser}) => {
       }
     })
 
-    console.log(data);
+    // console.log(data);
   };
 
   if(currentUser) {
@@ -71,7 +71,7 @@ const LoginForm : React.FC<LoginFormProps> = ({currentUser}) => {
         outline
         label="Continue with Google"
         icon={AiOutlineGoogle}
-        onClick={() => {}}
+        onClick={() => {signIn("google")}}
       />
       <hr className="bg-slate-300 w-full h-px" />
       <Input

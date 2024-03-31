@@ -6,9 +6,10 @@ interface UserAvatarProps {
 }
 const UserAvatar = ({ src }: UserAvatarProps) => {
   if (src) {
-    return <Image src={src} alt="Avatar" height={30} width={30} className="" />;
+    return <Image src={src} alt="Avatar" height={30} width={30} className="rounded-full" />;
+  } else {
+    return <FaUserCircle size={24} />;
   }
-  return <FaUserCircle size={24} />;
 };
 
 export default UserAvatar;
