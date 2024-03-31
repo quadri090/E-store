@@ -20,6 +20,8 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     setIsOpen((prev) => !prev);
   }, []);
 
+  console.log(currentUser)
+
   return (
     <>
       <div className="relative z-30">
@@ -27,7 +29,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           className="p-1 border-[1px] border-slate-400 flex flex-row items-center gap-1 rounded-2xl cursor-pointer hover:shadow-md transition text-slate-700"
           onClick={toggleOptions}
         >
-          <UserAvatar />
+          <UserAvatar src={currentUser?.image}/>
           {isOpen ? <AiFillCaretUp /> : <AiFillCaretDown />}
         </div>
         {isOpen && (

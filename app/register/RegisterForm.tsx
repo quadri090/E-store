@@ -66,7 +66,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({currentUser}) => {
       })
       .catch(() => toast.error("Something went wrong"))
       .finally(() => setIsLoading(false));
-    console.log(data);
+    // console.log(data);
   };
 
   if(currentUser) {
@@ -81,7 +81,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({currentUser}) => {
         outline
         label="Sign Up with Google"
         icon={AiOutlineGoogle}
-        onClick={() => {}}
+        onClick={() => {signIn("google")}}
       />
       <hr className="bg-slate-300 w-full h-px" />
       <Input
