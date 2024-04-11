@@ -33,7 +33,7 @@ const ItemContent: React.FC<ItemContentProps> = ({ item }) => {
             </Link>
             <div>{item.selectedImage.color}</div>
             <div className="w-[70px]">
-                <button onClick={() => handleRemoveProductFromCart(item)}>Remove</button>
+                <button className="outline outline-[1px] px-1.5 py-[2px] bg-slate-300 text-xs rounded-sm" onClick={() => handleRemoveProductFromCart(item)}>Remove</button>
             </div>
         </div>
       </div>
