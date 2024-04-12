@@ -11,6 +11,8 @@ type CartContextType = {
     handleCartQtyIncrease: (product: CartProductType) => void
     handleCartQtyDecrease: (product: CartProductType) => void
     handleClearCart: () => void
+    paymentIntent: String | null
+    handlePaymentIntent: (value: string | null) => void
 }
 
 export const CartContext = createContext<CartContextType | null>(null)
@@ -23,16 +25,19 @@ export const CartContextProvider = (props: Props) => {
 
     const [cartTotalQty, setCartTotalQty] = useState(0);
     const [cartTotalAmount, setCartTotalAmount] = useState(0);
-
     const [cartProducts, setCartProducts] = useState<CartProductType[] | null>(null)
+    const [paymentIntent, setPaymentIntent] = useState<string | null>(null)
 
 
-    //this logic gets the cart information stored in the browser storage. Almost like jsonwebtoken
+    //this logic gets the cartitems and paymentintent information stored in the browser storage if it exists there.
     useEffect(() => {
         const cartItems: any = localStorage.getItem('eStoreCartItems')
         const storageProducts: CartProductType[] | null = JSON.parse(cartItems)
+        const eShopPaymentIntent:any = localStorage.getItem('eShopPaymentIntent')
+        const paymentIntent: string | null = JSON.parse(eShopPaymentIntent) 
 
         setCartProducts(storageProducts)
+        setPaymentIntent(paymentIntent)
     }, [])
 
 
@@ -69,7 +74,7 @@ export const CartContextProvider = (props: Props) => {
             } else {
                 updatedCart = [product]
             }
-            toast.success('Product added to cart')
+            toast.success('Product added to cart');
             //storing cartitems info in local storage
             localStorage.setItem('eStoreCartItems', JSON.stringify(updatedCart))
             return updatedCart;
@@ -148,6 +153,11 @@ export const CartContextProvider = (props: Props) => {
 
     }, [])
 
+    const handlePaymentIntent = useCallback((value: string | null) => {
+        setPaymentIntent(value)
+        localStorage.setItem('eShopPaymentIntent', JSON.stringify(value))
+    }, [paymentIntent])
+
 
     const value = {
         cartTotalQty,
@@ -157,7 +167,9 @@ export const CartContextProvider = (props: Props) => {
         handleRemoveProductFromCart,
         handleCartQtyIncrease,
         handleCartQtyDecrease,
-        handleClearCart
+        handleClearCart,
+        paymentIntent,
+        handlePaymentIntent
     }
 
     return <CartContext.Provider value={value} {...props}/>

@@ -8,9 +8,16 @@ import Heading from '../components/Heading'
 import Btn from '../components/Btn'
 import ItemContent from './ItemContent'
 import { formatPrice } from '@/utils/formatPrice'
+import { safeUser } from '@/types'
+import { useRouter } from 'next/navigation'
 
-const CartClient = () => {
+interface CartClientProps {
+    currentUser: safeUser | null
+}
+
+const CartClient: React.FC<CartClientProps> = ({currentUser}) => {
     const {cartProducts, handleClearCart, cartTotalAmount} = useCart()
+    const router = useRouter()
 
     if(!cartProducts || cartProducts.length === 0) {
         return (
@@ -59,8 +66,11 @@ const CartClient = () => {
                 </div>
                 <p className='text-slate-500'>Taxes and Shipping Calculated at Checkout</p>
                 <Btn
-                label="Checkout"
-                onClick={() => {}}
+                label={currentUser ? "Checkout" : "Login To CheckOut"}
+                outline={currentUser ? false: true}
+                onClick={() => {
+                    currentUser ? router.push("/checkout") : router.push("/login")
+                }}
                 />
                  <Link href="/" className='flex gap-1 text-slate-500 items-center mt-2'>
                         <MdArrowBack />
